@@ -21,7 +21,7 @@ func NewAccessory(info accessory.Info) *Accessory {
 	return &Accessory{a, svc}
 }
 
-const TypeGeigerCounter = "AC6273AD-E687-4D03-9907-21991198E9E4"
+const TypeAirQualitySensor = "8D"
 
 type Service struct {
 	*service.Service
@@ -37,21 +37,21 @@ func NewService(name string) *Service {
 	nameChar.SetValue(name)
 
 	countsPerMinute := NewRadiationLevel(0)
-	countsPerMinute.Type = TypeRadiation
+	countsPerMinute.Type = characteristic.UnitPPM
 	countsPerMinute.Unit = "CPM"
 	countsPerMinute.Description = "Counts per minute"
 
 	nanoSievert := NewRadiationLevel(0)
-	nanoSievert.Type = TypeRadiation
+	nanoSievert.Type = characteristic.UnitPPM
 	nanoSievert.Unit = "nSv/h"
 	nanoSievert.Description = "Nanosieverts per hour"
 
 	microSievert := NewRadiationLevel(0)
-	microSievert.Type = TypeRadiation
+	microSievert.Type = characteristic.UnitPPM
 	microSievert.Unit = "µSv/h"
 	microSievert.Description = "Microsieverts per hour"
 
-	svc := service.New(TypeGeigerCounter)
+	svc := service.New(TypeAirQualitySensor)
 	svc.AddCharacteristic(countsPerMinute.Characteristic)
 	svc.AddCharacteristic(nanoSievert.Characteristic)
 	svc.AddCharacteristic(microSievert.Characteristic)

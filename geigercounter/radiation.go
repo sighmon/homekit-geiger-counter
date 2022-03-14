@@ -4,10 +4,6 @@ import (
 	"github.com/brutella/hc/characteristic"
 )
 
-const (
-	TypeRadiation = "8DBA11DD-991F-4265-9B0F-4985045222E1"
-)
-
 type RadiationLevel struct {
 	*characteristic.Float
 }
