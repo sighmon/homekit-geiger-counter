@@ -13,7 +13,7 @@ type Accessory struct {
 }
 
 func NewAccessory(info accessory.Info) *Accessory {
-	a := accessory.New(info, accessory.TypeSensor)
+	a := accessory.New(info, accessory.TypeOther)
 	svc := NewService(info.Name)
 
 	a.AddService(svc.Service)
