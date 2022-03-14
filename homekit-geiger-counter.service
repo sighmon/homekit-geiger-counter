@@ -1,0 +1,13 @@
+[Unit]
+Description=HomeKit Geiger Counter-exporter service
+After=network.target geiger-counter-exporter.service
+
+[Service]
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/dev/homekit-geiger-counter
+ExecStart=/home/pi/dev/homekit-geiger-counter/homekit-geiger-counter --port=80
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
