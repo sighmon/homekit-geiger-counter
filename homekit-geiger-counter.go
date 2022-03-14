@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/brutella/hc"
 	"github.com/brutella/hc/accessory"
+	"github.com/brutella/hc/service"
 
 	"github.com/sighmon/homekit-geiger-counter/geigercounter"
 
@@ -36,6 +37,28 @@ func init() {
 	}
 }
 
+func calculateAirQuality(usvh float64) int {
+	// Calculate the Air Quality from the average 2 mSv per year (20000/365/24 ~= 0.22831 µSv/h)
+	// https://research.csu.edu.au/integrity-ethics-compliance/radiation/forms-templates-proformas/radiation-life/ionising/how-much
+	// HomeKit	1			2			3			4			5
+	// µSv/h	<0.2		0.2-2.2		2.3-10		11-50		>50
+	airQuality := 0
+	switch {
+	case usvh < 0.22831:
+		airQuality = 1
+	case usvh >= 0.22831 && usvh <= 2.2:
+		airQuality = 2
+	case usvh >= 2.3 && usvh <= 10:
+		airQuality = 3
+	case usvh >= 11 && usvh <= 50:
+		airQuality = 4
+	case usvh >= 51:
+		airQuality = 5
+	}
+
+	return airQuality
+}
+
 func main() {
 	info := accessory.Info{
 		Name:             "Radiation",
@@ -48,6 +71,10 @@ func main() {
 	acc := geigercounter.NewAccessory(
 		info,
 	)
+
+	airQuality := service.NewAirQualitySensor()
+	acc.AddService(airQuality.Service)
+	acc.GeigerCounter.AddLinkedService(airQuality.Service)
 
 	config := hc.Config{
 		// Change the default Apple Accessory Pin if you wish
@@ -136,13 +163,16 @@ func main() {
 			}
 
 			// Set the sensor readings
+			airQualityReading := calculateAirQuality(readings.Usvh.Value)
 			acc.GeigerCounter.Cpm.SetValue(readings.Cpm.Value)
 			acc.GeigerCounter.Nsvh.SetValue(readings.Nsvh.Value)
 			acc.GeigerCounter.Usvh.SetValue(readings.Usvh.Value)
+			airQuality.AirQuality.SetValue(airQualityReading)
 
 			log.Println(fmt.Sprintf("CPM: %f", readings.Cpm.Value))
 			log.Println(fmt.Sprintf("nSv/h: %f", readings.Nsvh.Value))
-			log.Println(fmt.Sprintf("uSv/h: %f", readings.Usvh.Value))
+			log.Println(fmt.Sprintf("µSv/h: %f", readings.Usvh.Value))
+			log.Println(fmt.Sprintf("Air Quality: %d", airQualityReading))
 
 			// Time between readings
 			time.Sleep(secondsBetweenReadings)
