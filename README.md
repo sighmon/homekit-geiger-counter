@@ -55,7 +55,7 @@ If you uninstall this accessory from your Apple Home, you'll also need to delete
 
 ### macOS
 
-1. Delete the data in the folder created: `homekit-geiger-counter/SEN0463/`
+1. Delete the data in the folder created: `homekit-geiger-counter/Radiation/`
 1. Restart the executable
 
 ### Raspberry Pi

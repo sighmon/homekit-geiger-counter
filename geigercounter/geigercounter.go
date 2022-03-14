@@ -26,27 +26,27 @@ const typeGeigerCounter = "AC6273AD-E687-4D03-9907-21991198E9E4"
 type Service struct {
 	*service.Service
 
-	Name    *characteristic.Name
-	Cpm		*Radiation
-	Nsvh	*Radiation
-	Usvh	*Radiation
+	Name	*characteristic.Name
+	Cpm		*RadiationLevel
+	Nsvh	*RadiationLevel
+	Usvh	*RadiationLevel
 }
 
 func NewService(name string) *Service {
 	nameChar := characteristic.NewName()
 	nameChar.SetValue(name)
 
-	countsPerMinute := NewRadiation(0)
+	countsPerMinute := NewRadiationLevel(0)
 	countsPerMinute.Type = TypeRadiation
 	countsPerMinute.Unit = "CPM"
 	countsPerMinute.Description = "Counts per minute"
 
-	nanoSievert := NewRadiation(0)
+	nanoSievert := NewRadiationLevel(0)
 	nanoSievert.Type = TypeRadiation
 	nanoSievert.Unit = "nSv/h"
 	nanoSievert.Description = "Nanosieverts per hour"
 
-	microSievert := NewRadiation(0)
+	microSievert := NewRadiationLevel(0)
 	microSievert.Type = TypeRadiation
 	microSievert.Unit = "µSv/h"
 	microSievert.Description = "Microsieverts per hour"

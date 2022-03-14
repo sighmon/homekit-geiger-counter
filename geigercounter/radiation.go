@@ -9,13 +9,13 @@ const (
 )
 
 type RadiationLevel struct {
-	*Float
+	*characteristic.Float
 }
 
 func NewRadiationLevel(val float64) *RadiationLevel {
-	p := Radiation{characteristic.NewFloat("")}
+	p := RadiationLevel{characteristic.NewFloat("")}
 	p.Value = val
-	p.Format = FormatFloat
+	p.Format = characteristic.FormatFloat
 	p.Perms = characteristic.PermsRead()
 	p.SetMinValue(0)
 	p.SetMaxValue(181600)

@@ -3,8 +3,6 @@ package main
 import (
 	"github.com/brutella/hc"
 	"github.com/brutella/hc/accessory"
-	"github.com/brutella/hc/characteristic"
-	"github.com/brutella/hc/service"
 
 	"github.com/sighmon/homekit-geiger-counter/geigercounter"
 
@@ -40,10 +38,10 @@ func init() {
 
 func main() {
 	info := accessory.Info{
-		Name:             "Gravity Geiger Counter",
+		Name:             "Radiation",
 		SerialNumber:     "SEN0463",
 		Manufacturer:     "DF Robot",
-		Model:            "SEN0463",
+		Model:            "Gravity Geiger Counter",
 		FirmwareRevision: "1.0.0",
 	}
 
