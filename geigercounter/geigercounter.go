@@ -37,17 +37,17 @@ func NewService(name string) *Service {
 	nameChar.SetValue(name)
 
 	countsPerMinute := NewRadiationLevel(0)
-	countsPerMinute.Type = TypeRadiation
+	countsPerMinute.Type = TypeRadiationCpm
 	countsPerMinute.Unit = "CPM"
 	countsPerMinute.Description = "Counts per minute"
 
 	nanoSievert := NewRadiationLevel(0)
-	nanoSievert.Type = TypeRadiation
+	nanoSievert.Type = TypeRadiationNsv
 	nanoSievert.Unit = "nSv/h"
 	nanoSievert.Description = "Nanosieverts per hour"
 
 	microSievert := NewRadiationLevel(0)
-	microSievert.Type = TypeRadiation
+	microSievert.Type = TypeRadiationUsv
 	microSievert.Unit = "µSv/h"
 	microSievert.Description = "Microsieverts per hour"
 
