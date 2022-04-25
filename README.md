@@ -4,6 +4,8 @@ An [Apple HomeKit](https://developer.apple.com/homekit/) accessory for the [DF R
 
 ![The accessory added to iOS](_images/homekit-geiger-counter.jpg)
 
+**Note**: this app is currently only supported in [Home+](https://apps.apple.com/us/app/home-5/id995994352) and not yet in Apple Home. Please up-vote [this forum post](https://developer.apple.com/forums/thread/702676) if you'd like Apple to add support.
+
 ## Dependencies
 
 * [**Go**](http://golang.org/doc/install) - this accessory is written in Go
